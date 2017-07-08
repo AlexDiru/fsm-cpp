@@ -14,10 +14,6 @@ class Transition {
 
 public:
 	Transition() = delete;
-	//Transition(const Transition& other);
-	//Transition& operator=(const Transition& other);
-
-	~Transition();
 
 	Transition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const shared_ptr<TransitionType> transitionValue);
 
