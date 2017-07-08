@@ -46,6 +46,8 @@ void DemonstrateStringFiniteStateMachine() {
 	auto transitions = FSM->Consume(data);
 
 	cout << "Total Number of Transitions: " << transitions.size() << endl;
+
+	delete FSM;
 }
 
 int main() {

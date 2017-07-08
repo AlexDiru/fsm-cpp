@@ -66,10 +66,10 @@ void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const share
 }
 
 template <typename StateType, typename TransitionType>
-const Transition<StateType, TransitionType>* FiniteStateMachine<StateType, TransitionType>::FindTransition(const shared_ptr<StateType> currentState, const TransitionType& currentData) const {
+shared_ptr<Transition<StateType, TransitionType>> FiniteStateMachine<StateType, TransitionType>::FindTransition(const shared_ptr<StateType> currentState, const TransitionType& currentData) const {
 	for (int i = 0; i < Transitions.size(); i++) {
 		if (Transitions[i].Handles(currentState, currentData))
-			return &Transitions[i];
+			return shared_ptr<Transition<StateType, TransitionType>>(new Transition<StateType, TransitionType>(Transitions[i]));
 	}
 
 	return nullptr;

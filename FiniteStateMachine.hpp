@@ -27,7 +27,7 @@ public:
 
 	void DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, TransitionType&& transition);
 
-	const Transition_* FindTransition(const shared_ptr<StateType> currentState, const TransitionType& currentData) const;
+	shared_ptr<Transition_> FindTransition(const shared_ptr<StateType> currentState, const TransitionType& currentData) const;
 
 	Transitions_ Consume(const vector<TransitionType>& data, bool ignoreWhitespace = true, bool verbose = true) const;
 };
