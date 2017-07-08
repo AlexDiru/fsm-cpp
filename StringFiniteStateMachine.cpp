@@ -12,13 +12,13 @@ vector<char> StringFiniteStateMachine::StringToVectorChar(const string& str) {
 	return v;
 }
 
-void StringFiniteStateMachine::DefineTransitions(string* from, string* to, const string& transitions) {
+void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, const string& transitions) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i]);
 	}
 }
 
-void StringFiniteStateMachine::DefineTransitions(string* from, string* to, string&& transitions) {
+void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, string&& transitions) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i]);
 	}

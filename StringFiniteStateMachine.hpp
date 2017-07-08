@@ -17,7 +17,7 @@ public:
 
 	static vector<char> StringToVectorChar(const string& str);
 
-	void DefineTransitions(string* from, string* to, const string& transitions);
+	void DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, const string& transitions);
 
-	void DefineTransitions(string* from, string* to, string&& transitions);
+	void DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, string&& transitions);
 };
