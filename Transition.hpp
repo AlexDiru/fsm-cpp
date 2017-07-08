@@ -12,6 +12,10 @@ class Transition {
 
 public:
 	Transition() = delete;
+	//Transition(const Transition& other);
+	//Transition& operator=(const Transition& other);
+
+	~Transition();
 
 	Transition(const StateType *from, const StateType *to, const TransitionType* transitionValue);
 

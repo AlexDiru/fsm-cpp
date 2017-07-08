@@ -18,6 +18,8 @@ class FiniteStateMachine {
 	StateType *StartState; //Starting state of the FSM
 
 public:
+	~FiniteStateMachine();
+	
 	void AddState(const StateType* state);
 
 	void SpecifyStartState(StateType* start);

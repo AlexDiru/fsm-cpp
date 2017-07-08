@@ -73,3 +73,11 @@ const Transition<StateType, TransitionType>* FiniteStateMachine<StateType, Trans
 
 	return nullptr;
 }
+
+template <typename StateType, typename TransitionType>
+FiniteStateMachine<StateType, TransitionType>::~FiniteStateMachine() {
+	delete StartState;
+	for (int i = 0; i < States.size(); i++) 
+		if (States[i] != nullptr)
+			delete States[i];
+}
