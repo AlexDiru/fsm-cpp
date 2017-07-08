@@ -1,0 +1,4 @@
+.tpp files used for templated classes
+
+Build with: g++ -std=c++14 -stdlib=libc++ StringFiniteStateMachine.cpp FSMMain.cpp
+or: g++ -std=c++11 -stdlib=libc++ StringFiniteStateMachine.cpp FSMMain.cpp
