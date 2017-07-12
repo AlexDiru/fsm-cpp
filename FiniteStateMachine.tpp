@@ -5,11 +5,11 @@ vector<Transition<StateType, TransitionType>> FiniteStateMachine<StateType, Tran
 
 	//Sort transitions by length, prioritising longer ones
 	//This way we can have 334 and 33 has state changers
-	sort(Transitions.begin(), Transitions.end(), [](const Transition_& a, const Transition_& b) -> bool { return a.GetSize() > b.GetSize(); });
+	sort(Transitions.begin(), Transitions.end(), [](const TTransition& a, const TTransition& b) -> bool { return a.GetSize() > b.GetSize(); });
 	
 	shared_ptr<StateType> currentState = StartState;
 	shared_ptr<StateType> previousState = StartState;
-	Transitions_ stateChanges;
+	TTransitions stateChanges;
 
 	if (verbose) {
 		cout << "Consume Input: ";
@@ -41,7 +41,11 @@ vector<Transition<StateType, TransitionType>> FiniteStateMachine<StateType, Tran
 		} else {
 			previousState = currentState;
 			currentState = transition->GetEndState();
-			stateChanges.push_back(Transition_(previousState, currentState, consumed));
+			stateChanges.push_back(TTransition(previousState, currentState, consumed));
+
+			//Teleport
+			if (transition->GetTeleportState() != nullptr) 
+				currentState = transition->GetTeleportState();
 		}
 
 	}
@@ -64,16 +68,7 @@ void FiniteStateMachine<StateType, TransitionType>::SpecifyStartState(shared_ptr
 
 template <typename StateType, typename TransitionType>
 void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const TransitionType& transition) {
-	//Check for existence of from state
-	if (find(States.begin(), States.end(), from) == States.end())
-		cerr << "ERROR: STATE " << *from << " DOES NOT EXIST" << endl;
-
-	//Check for existence of to state
-	if (find(States.begin(), States.end(), to) == States.end())
-		cerr << "ERROR: STATE " << *to << " DOES NOT EXIST" << endl;
-
-	auto ptr = shared_ptr<TransitionType>(new TransitionType(transition));
-	Transitions.push_back(Transition_(from, to, ptr));
+	DefineTransition(from, to, transition, nullptr);
 }
 
 template <typename StateType, typename TransitionType>
@@ -82,29 +77,14 @@ void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const share
 	DefineTransition(from, to, transition);
 }
 
-
 template <typename StateType, typename TransitionType>
 void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const vector<shared_ptr<TransitionType>>& transitions) {
-	//Check for existence of from state
-	if (find(States.begin(), States.end(), from) == States.end())
-		cerr << "ERROR: STATE " << *from << " DOES NOT EXIST" << endl;
-
-	//Check for existence of to state
-	if (find(States.begin(), States.end(), to) == States.end())
-		cerr << "ERROR: STATE " << *to << " DOES NOT EXIST" << endl;
-
-	Transitions.push_back(Transition_(from, to, transitions));
+	DefineTransition(from, to, transitions, nullptr);
 }
 
 template <typename StateType, typename TransitionType>
 void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const vector<TransitionType>& transitions) {
-	
-	auto ptrVec = vector<shared_ptr<TransitionType>>();
-	for (int i = 0; i < transitions.size(); i++) {
-		ptrVec.push_back(shared_ptr<TransitionType>(new TransitionType(transitions[i])));
-	}
-
-	DefineTransition(from, to, ptrVec);
+	DefineTransition(from, to, transitions, nullptr);
 }
 
 template <typename StateType, typename TransitionType>

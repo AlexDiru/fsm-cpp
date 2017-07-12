@@ -18,8 +18,21 @@ void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared
 	}
 }
 
+void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, const string& transitions, shared_ptr<string> teleportState) {
+	for (int i = 0; i < transitions.length();i++) {
+		DefineTransition(from, to, transitions[i], teleportState);
+	}
+}
+
+
 void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, string&& transitions) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i]);
 	}
+}
+
+void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, string&& transitions, shared_ptr<string> teleportState) {
+	for (int i = 0; i < transitions.length();i++) {
+		DefineTransition(from, to, transitions[i], teleportState);
+	}	
 }

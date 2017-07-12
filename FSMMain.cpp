@@ -62,31 +62,24 @@ void DemonstrateStringFiniteStateMachine() {
 
 	auto *FSM = new StringFiniteStateMachine();
 
+
+	shared_ptr<string> STATE_START (new string("START"));
 	shared_ptr<string> STATE_NUMBER (new string("NUMBER"));
-
 	shared_ptr<string> STATE_ID (new string("IDENTIFIER"));
-
 	shared_ptr<string> STATE_OPERATOR (new string("OPERATOR"));
 
+	FSM->AddState(STATE_START);
 	FSM->AddState(STATE_NUMBER);
 	FSM->AddState(STATE_ID);
 	FSM->AddState(STATE_OPERATOR);
 
-	FSM->SpecifyStartState(STATE_NUMBER);
+	FSM->SpecifyStartState(STATE_START);
 
 	const string operators = "+-/*=";
 
-	FSM->DefineTransitions(STATE_NUMBER,STATE_NUMBER,StringFiniteStateMachine::ZERO_TO_NINE);
-	FSM->DefineTransitions(STATE_NUMBER,STATE_ID,StringFiniteStateMachine::A_TO_z);
-	FSM->DefineTransitions(STATE_NUMBER,STATE_OPERATOR, operators);
-	FSM->DefineTransitions(STATE_ID, STATE_ID, StringFiniteStateMachine::A_TO_z);
-	FSM->DefineTransitions(STATE_ID, STATE_NUMBER, StringFiniteStateMachine::ZERO_TO_NINE);
-	FSM->DefineTransitions(STATE_ID, STATE_OPERATOR, operators);
-	FSM->DefineTransitions(STATE_OPERATOR, STATE_NUMBER, StringFiniteStateMachine::ZERO_TO_NINE);
-	FSM->DefineTransitions(STATE_OPERATOR, STATE_ID, StringFiniteStateMachine::A_TO_z);
-	//Can't have two operators next to each other except =- e.g. 12x = -3y
-	FSM->DefineTransitions(STATE_OPERATOR, STATE_OPERATOR, "-");
-
+	FSM->DefineTransitions(STATE_START,STATE_NUMBER,StringFiniteStateMachine::ZERO_TO_NINE,STATE_START);
+	FSM->DefineTransitions(STATE_START,STATE_ID,StringFiniteStateMachine::A_TO_z,STATE_START);
+	FSM->DefineTransitions(STATE_START,STATE_OPERATOR, operators,STATE_START);
 
 	string input = "12x + ab = -2a";
 
