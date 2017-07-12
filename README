@@ -2,3 +2,5 @@
 
 Build with: g++ -std=c++14 -stdlib=libc++ StringFiniteStateMachine.cpp FSMMain.cpp
 or: g++ -std=c++11 -stdlib=libc++ StringFiniteStateMachine.cpp FSMMain.cpp
+
+Valgrind Test: valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./a.out
