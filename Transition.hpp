@@ -57,6 +57,11 @@ public:
  		str += ")";
 		return str;
  	}
+
+ 	bool operator < (const Transition& other) const
+    {
+        return TransitionValues.size() < other.TransitionValues.size();
+    }
 };
 
 

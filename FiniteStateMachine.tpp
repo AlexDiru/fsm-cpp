@@ -3,8 +3,9 @@
 template <typename StateType, typename TransitionType>
 vector<Transition<StateType, TransitionType>> FiniteStateMachine<StateType, TransitionType>::Consume(const vector<TransitionType>& data, bool ignoreWhitespace, bool verbose) {
 
-	//Group transitions by single and multiple
-	GroupElementsByMultiTransitions();
+	//Sort transitions by length, prioritising longer ones
+	//This way we can have 334 and 33 has state changers
+	sort(Transitions.begin(), Transitions.end(), [](const Transition_& a, const Transition_& b) -> bool { return a.GetSize() > b.GetSize(); });
 	
 	shared_ptr<StateType> currentState = StartState;
 	shared_ptr<StateType> previousState = StartState;
@@ -79,6 +80,31 @@ template <typename StateType, typename TransitionType>
 void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, TransitionType&& transition) {
 	TransitionType temp = transition;
 	DefineTransition(from, to, transition);
+}
+
+
+template <typename StateType, typename TransitionType>
+void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const vector<shared_ptr<TransitionType>>& transitions) {
+	//Check for existence of from state
+	if (find(States.begin(), States.end(), from) == States.end())
+		cerr << "ERROR: STATE " << *from << " DOES NOT EXIST" << endl;
+
+	//Check for existence of to state
+	if (find(States.begin(), States.end(), to) == States.end())
+		cerr << "ERROR: STATE " << *to << " DOES NOT EXIST" << endl;
+
+	Transitions.push_back(Transition_(from, to, transitions));
+}
+
+template <typename StateType, typename TransitionType>
+void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const vector<TransitionType>& transitions) {
+	
+	auto ptrVec = vector<shared_ptr<TransitionType>>();
+	for (int i = 0; i < transitions.size(); i++) {
+		ptrVec.push_back(shared_ptr<TransitionType>(new TransitionType(transitions[i])));
+	}
+
+	DefineTransition(from, to, ptrVec);
 }
 
 template <typename StateType, typename TransitionType>
