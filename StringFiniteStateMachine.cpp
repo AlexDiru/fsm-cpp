@@ -14,26 +14,26 @@ vector<char> StringFiniteStateMachine::StringToVectorChar(const string& str) {
 	return v;
 }
 
-void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, const string& transitions) {
+void StringFiniteStateMachine::DefineTransitions(SharedPtrString from, SharedPtrString to, const string& transitions) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i]);
 	}
 }
 
-void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, const string& transitions, shared_ptr<string> teleportState) {
+void StringFiniteStateMachine::DefineTransitions(SharedPtrString from, SharedPtrString to, const string& transitions, SharedPtrString teleportState) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i], teleportState);
 	}
 }
 
 
-void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, string&& transitions) {
+void StringFiniteStateMachine::DefineTransitions(SharedPtrString from, SharedPtrString to, string&& transitions) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i]);
 	}
 }
 
-void StringFiniteStateMachine::DefineTransitions(shared_ptr<string> from, shared_ptr<string> to, string&& transitions, shared_ptr<string> teleportState) {
+void StringFiniteStateMachine::DefineTransitions(SharedPtrString from, SharedPtrString to, string&& transitions, SharedPtrString teleportState) {
 	for (int i = 0; i < transitions.length();i++) {
 		DefineTransition(from, to, transitions[i], teleportState);
 	}	

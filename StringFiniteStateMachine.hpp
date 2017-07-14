@@ -9,7 +9,7 @@ class StringFiniteStateMachine : public FiniteStateMachine<std::string, char> {
 public:
 
 	using TTransition = Transition<std::string, char>;
-	using SharedPtrString = std::shared_ptr<std::string>;
+	using SharedPtrString = const std::shared_ptr<std::string>&;
 
 	static const std::string A_TO_Z;
 	static const std::string A_TO_z;
