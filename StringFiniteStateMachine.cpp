@@ -1,5 +1,7 @@
 #include "StringFiniteStateMachine.hpp"
 
+using namespace std;
+
 const string StringFiniteStateMachine::A_TO_Z = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const string StringFiniteStateMachine::A_TO_z = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const string StringFiniteStateMachine::a_TO_z = "abcdefghijklmnopqrstuvwxyz";

@@ -1,7 +1,7 @@
 #pragma once
 
 template <typename StateType, typename TransitionType> 
-Transition<StateType, TransitionType>::Transition(const shared_ptr<StateType> from, const shared_ptr<StateType> to, const shared_ptr<TransitionType> transitionValue) {
+Transition<StateType, TransitionType>::Transition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::shared_ptr<TransitionType> transitionValue) {
 	From = from;
 	To = to;
 	TransitionValues.push_back(transitionValue);
@@ -9,7 +9,7 @@ Transition<StateType, TransitionType>::Transition(const shared_ptr<StateType> fr
 
 //ONLY FOR SINGLE ELEMENT TRANSITIONS
 template <typename StateType, typename TransitionType>
-bool Transition<StateType, TransitionType>::Handles(shared_ptr<StateType> from,const TransitionType& data) const {
+bool Transition<StateType, TransitionType>::Handles(std::shared_ptr<StateType> from,const TransitionType& data) const {
 	if (TransitionValues.size() != 1)
 		return false;
 
@@ -17,11 +17,11 @@ bool Transition<StateType, TransitionType>::Handles(shared_ptr<StateType> from,c
 }
 
 template <typename StateType, typename TransitionType>
-bool Transition<StateType, TransitionType>::Handles(shared_ptr<StateType> from,const vector<shared_ptr<TransitionType>>& dataVec) const {
+bool Transition<StateType, TransitionType>::Handles(std::shared_ptr<StateType> from,const std::vector<std::shared_ptr<TransitionType>>& dataVec) const {
 
 
 	if (TransitionValues.size() == 0)
-		cerr << "No Transition Values for Transition" << endl;
+		std::cerr << "No Transition Values for Transition" << std::endl;
 
 	if (dataVec.size() != TransitionValues.size())
 		return false;
@@ -42,6 +42,15 @@ bool Transition<StateType, TransitionType>::Handles(shared_ptr<StateType> from,c
 }
 
 template <typename StateType, typename TransitionType>
-const shared_ptr<StateType> Transition<StateType, TransitionType>::GetEndState() const {
-	return To;
+std::string Transition<StateType, TransitionType>::ToString(std::function<std::string(TransitionType&)> transitionTypeToStringFunction) const {
+
+	//Use stringstreams?
+	std::string str{*To};
+	str += " (";
+	
+	for (size_t i  = 0; i < TransitionValues.size(); i++) 
+		str += transitionTypeToStringFunction(*(TransitionValues[i]));
+	
+	str += ")";
+	return str;
 }

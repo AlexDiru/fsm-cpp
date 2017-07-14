@@ -34,10 +34,10 @@ void DemonstrateFiniteStateMachine() {
 
 	FSM->SpecifyStartState(STATE_THREE);
 
-	FSM->DefineTransition(STATE_THREE, STATE_FOUR, vector<bool>({true,false,false}));
-	FSM->DefineTransition(STATE_THREE, STATE_THREE, vector<bool>({true,true}));
+	FSM->DefineTransition(STATE_THREE, STATE_FOUR, vector<bool>{true,false,false});
+	FSM->DefineTransition(STATE_THREE, STATE_THREE, vector<bool>{true,true});
 
-	vector<bool> input({true, true, true, false, false});
+	vector<bool> input{true, true, true, false, false};
 
 	cout << "Input: ";
 	for (int i = 0; i < input.size(); i++) {
@@ -63,10 +63,10 @@ void DemonstrateStringFiniteStateMachine() {
 	auto *FSM = new StringFiniteStateMachine();
 
 
-	shared_ptr<string> STATE_START (new string("START"));
-	shared_ptr<string> STATE_NUMBER (new string("NUMBER"));
-	shared_ptr<string> STATE_ID (new string("IDENTIFIER"));
-	shared_ptr<string> STATE_OPERATOR (new string("OPERATOR"));
+	shared_ptr<string> STATE_START (new string{"START"});
+	shared_ptr<string> STATE_NUMBER (new string{"NUMBER"});
+	shared_ptr<string> STATE_ID (new string{"IDENTIFIER"});
+	shared_ptr<string> STATE_OPERATOR (new string{"OPERATOR"});
 
 	FSM->AddState(STATE_START);
 	FSM->AddState(STATE_NUMBER);
