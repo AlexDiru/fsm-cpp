@@ -9,6 +9,7 @@ class StringFiniteStateMachine : public FiniteStateMachine<std::string, char> {
 public:
 
 	using TTransition = Transition<std::string, char>;
+	using SharedPtrString = std::shared_ptr<std::string>;
 
 	static const std::string A_TO_Z;
 	static const std::string A_TO_z;
@@ -17,9 +18,9 @@ public:
 
 	static std::vector<char> StringToVectorChar(const std::string& str);
 
-	void DefineTransitions(std::shared_ptr<std::string> from, std::shared_ptr<std::string> to, const std::string& transitions);
-	void DefineTransitions(std::shared_ptr<std::string> from, std::shared_ptr<std::string> to, const std::string& transitions, std::shared_ptr<std::string> teleportState);
+	void DefineTransitions(SharedPtrString from, SharedPtrString to, const std::string& transitions);
+	void DefineTransitions(SharedPtrString from, SharedPtrString to, const std::string& transitions, SharedPtrString teleportState);
 
-	void DefineTransitions(std::shared_ptr<std::string> from, std::shared_ptr<std::string> to, std::string&& transitions);
-	void DefineTransitions(std::shared_ptr<std::string> from, std::shared_ptr<std::string> to, std::string&& transitions, std::shared_ptr<std::string> teleportState);
+	void DefineTransitions(SharedPtrString from, SharedPtrString to, std::string&& transitions);
+	void DefineTransitions(SharedPtrString from, SharedPtrString to, std::string&& transitions, SharedPtrString teleportState);
 };

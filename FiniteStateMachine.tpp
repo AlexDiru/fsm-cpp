@@ -57,38 +57,38 @@ std::vector<Transition<StateType, TransitionType>> FiniteStateMachine<StateType,
 }
 
 template <typename StateType, typename TransitionType>
-void FiniteStateMachine<StateType, TransitionType>::AddState(const std::shared_ptr<StateType> state) {
+void FiniteStateMachine<StateType, TransitionType>::AddState(const std::shared_ptr<StateType>& state) {
 	States.push_back(state);
 }
 
 template <typename StateType, typename TransitionType>
-void FiniteStateMachine<StateType, TransitionType>::SpecifyStartState(std::shared_ptr<StateType> start) {
+void FiniteStateMachine<StateType, TransitionType>::SpecifyStartState(const std::shared_ptr<StateType>& start) {
 	StartState = start;
 }
 
 template <typename StateType, typename TransitionType>
-void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const TransitionType& transition) {
+void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const TransitionType& transition) {
 	DefineTransition(from, to, transition, nullptr);
 }
 
 template <typename StateType, typename TransitionType>
-void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, TransitionType&& transition) {
+void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, TransitionType&& transition) {
 	TransitionType temp = transition;
 	DefineTransition(from, to, transition);
 }
 
 template <typename StateType, typename TransitionType>
-void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<std::shared_ptr<TransitionType>>& transitions) {
+void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<std::shared_ptr<TransitionType>>& transitions) {
 	DefineTransition(from, to, transitions, nullptr);
 }
 
 template <typename StateType, typename TransitionType>
-void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<TransitionType>& transitions) {
+void FiniteStateMachine<StateType, TransitionType>::DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<TransitionType>& transitions) {
 	DefineTransition(from, to, transitions, nullptr);
 }
 
 template <typename StateType, typename TransitionType>
-std::shared_ptr<Transition<StateType, TransitionType>> FiniteStateMachine<StateType, TransitionType>::FindTransition(const std::shared_ptr<StateType> currentState, const std::vector<TransitionType>& data, int& currentIndex, std::vector<std::shared_ptr<TransitionType>>& consumed) const {
+std::shared_ptr<Transition<StateType, TransitionType>> FiniteStateMachine<StateType, TransitionType>::FindTransition(const std::shared_ptr<StateType>& currentState, const std::vector<TransitionType>& data, int& currentIndex, std::vector<std::shared_ptr<TransitionType>>& consumed) const {
 
 	for (int i = 0; i < Transitions.size(); i++) {
 		size_t transitionSize = Transitions[i].GetSize();

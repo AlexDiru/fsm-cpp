@@ -21,7 +21,7 @@ class FiniteStateMachine {
 	TTransitions MultipleItemTransitions;
 
 
-	std::shared_ptr<TTransition> FindTransition(const std::shared_ptr<StateType> currentState, const std::vector<TransitionType>& data, int& currentIndex, std::vector<std::shared_ptr<TransitionType>>& consumed) const;
+	std::shared_ptr<TTransition> FindTransition(const std::shared_ptr<StateType>& currentState, const std::vector<TransitionType>& data, int& currentIndex, std::vector<std::shared_ptr<TransitionType>>& consumed) const;
 
 	static std::vector<std::shared_ptr<TransitionType>> VectorToVectorOfPointers(const std::vector<TransitionType>& vec) {
 		std::vector<std::shared_ptr<TransitionType>> vecPtr;
@@ -31,9 +31,9 @@ class FiniteStateMachine {
 	}
 public:
 	
-	void AddState(const std::shared_ptr<StateType> state);
+	void AddState(const std::shared_ptr<StateType>& state);
 
-	void SpecifyStartState(std::shared_ptr<StateType> start);
+	void SpecifyStartState(const std::shared_ptr<StateType>& start);
 
 	void DefineTransition(const TTransition& transition) {
 		//Check for existence of from state
@@ -47,12 +47,12 @@ public:
 		Transitions.push_back(transition);
 	}
 
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const TransitionType& transition);
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, TransitionType&& transition);
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<std::shared_ptr<TransitionType>>& transitions);
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<TransitionType>& transitions);
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const TransitionType& transition);
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, TransitionType&& transition);
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<std::shared_ptr<TransitionType>>& transitions);
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<TransitionType>& transitions);
 
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const TransitionType& transition, const std::shared_ptr<StateType> teleport) {
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const TransitionType& transition, const std::shared_ptr<StateType>& teleport) {
 		//Check for existence of from state
 		if (find(States.begin(), States.end(), from) == States.end())
 			std::cerr << "ERROR: STATE " << *from << " DOES NOT EXIST" << std::endl;
@@ -69,13 +69,13 @@ public:
 	}
 
 
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<TransitionType>& transitions, const std::shared_ptr<StateType> teleport) {
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<TransitionType>& transitions, const std::shared_ptr<StateType>& teleport) {
 		DefineTransition(from, to, FiniteStateMachine::VectorToVectorOfPointers(transitions), teleport);
 	}
 
 
 
-	void DefineTransition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<std::shared_ptr<TransitionType>>& transitions, const std::shared_ptr<StateType> teleport) {
+	void DefineTransition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType> to, const std::vector<std::shared_ptr<TransitionType>>& transitions, const std::shared_ptr<StateType>& teleport) {
 		//Check for existence of from state
 		if (find(States.begin(), States.end(), from) == States.end())
 			std::cerr << "ERROR: STATE " << *from << " DOES NOT EXIST" << std::endl;

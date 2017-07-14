@@ -20,23 +20,23 @@ public:
 
 	Transition() = delete;
 
-	Transition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::shared_ptr<TransitionType> transitionValue);
+	Transition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::shared_ptr<TransitionType>& transitionValue);
 
-	Transition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<std::shared_ptr<TransitionType>>& transitionValues) {
+	Transition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<std::shared_ptr<TransitionType>>& transitionValues) {
 		From = from;
 		To = to;
 		TransitionValues = transitionValues;
 	}
 
 
-	Transition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::shared_ptr<TransitionType> transitionValue, const std::shared_ptr<StateType> teleport) {
+	Transition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::shared_ptr<TransitionType>& transitionValue, const std::shared_ptr<StateType>& teleport) {
 		From = from;
 		To = to;
 		TransitionValues.push_back(transitionValue);
 		Teleport = teleport;
 	}
 
-	Transition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::vector<std::shared_ptr<TransitionType>>& transitionValues, const std::shared_ptr<StateType> teleport) {
+	Transition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::vector<std::shared_ptr<TransitionType>>& transitionValues, const std::shared_ptr<StateType>& teleport) {
 		From = from;
 		To = to;
 		TransitionValues = transitionValues;
@@ -44,8 +44,8 @@ public:
 	}
 
 	//Given a current state, and a data item, does this transition progress to the next state?
-	bool Handles(std::shared_ptr<StateType> from, const TransitionType& data) const;
-	bool Handles(std::shared_ptr<StateType> from, const std::vector<std::shared_ptr<TransitionType>>& dataVec) const;
+	bool Handles(const std::shared_ptr<StateType>& from, const TransitionType& data) const;
+	bool Handles(const std::shared_ptr<StateType>& from, const std::vector<std::shared_ptr<TransitionType>>& dataVec) const;
 
 
  	bool MultipleInputsRequired() const { return TransitionValues.size() > 1; }

@@ -1,7 +1,7 @@
 #pragma once
 
 template <typename StateType, typename TransitionType> 
-Transition<StateType, TransitionType>::Transition(const std::shared_ptr<StateType> from, const std::shared_ptr<StateType> to, const std::shared_ptr<TransitionType> transitionValue) {
+Transition<StateType, TransitionType>::Transition(const std::shared_ptr<StateType>& from, const std::shared_ptr<StateType>& to, const std::shared_ptr<TransitionType>& transitionValue) {
 	From = from;
 	To = to;
 	TransitionValues.push_back(transitionValue);
@@ -9,7 +9,7 @@ Transition<StateType, TransitionType>::Transition(const std::shared_ptr<StateTyp
 
 //ONLY FOR SINGLE ELEMENT TRANSITIONS
 template <typename StateType, typename TransitionType>
-bool Transition<StateType, TransitionType>::Handles(std::shared_ptr<StateType> from,const TransitionType& data) const {
+bool Transition<StateType, TransitionType>::Handles(const std::shared_ptr<StateType>& from,const TransitionType& data) const {
 	if (TransitionValues.size() != 1)
 		return false;
 
@@ -17,7 +17,7 @@ bool Transition<StateType, TransitionType>::Handles(std::shared_ptr<StateType> f
 }
 
 template <typename StateType, typename TransitionType>
-bool Transition<StateType, TransitionType>::Handles(std::shared_ptr<StateType> from,const std::vector<std::shared_ptr<TransitionType>>& dataVec) const {
+bool Transition<StateType, TransitionType>::Handles(const std::shared_ptr<StateType>& from,const std::vector<std::shared_ptr<TransitionType>>& dataVec) const {
 
 
 	if (TransitionValues.size() == 0)
